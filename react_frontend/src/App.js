@@ -3,8 +3,6 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 
-{/* image size: 680px by 830px  */ }
-
 function App() {
   return (
     <BrowserRouter>
@@ -23,7 +21,6 @@ function App() {
         <main>
           <Route path="/product/:id" component={ProductScreen}></Route>
           <Route path="/" component={HomeScreen} exact></Route>
-          
         </main>
       <footer className="row center">All rights reserved</footer>
       </div>
