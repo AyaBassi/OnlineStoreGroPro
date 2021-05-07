@@ -16,7 +16,6 @@ const data = {
     ],
     products:[
         {
-            _id:'1',
             name:'Magners',
             category:'Fruits',
             image:'/images/p1.jpg',
@@ -25,10 +24,10 @@ const data = {
             brand: 'Spain',
             rating: 4.5,
             numReviews: 10,
-            description: 'High quality product'
+            description: 'High quality product',
+            expDate:"2021-05-20"
         },
         {
-            _id:'2',
             name:'Apple',
             category:'Fruits',
             image:'/images/p2.jpg',
@@ -37,10 +36,10 @@ const data = {
             brand: 'Spain',
             rating: 4.0,
             numReviews: 10,
-            description: 'High quality product'
+            description: 'High quality product',
+            expDate:"2021-06-20"
         },
         {
-            _id:'3',
             name:'Large Oranges',
             category:'Fruits',
             image:'/images/p3.jpg',
@@ -49,10 +48,10 @@ const data = {
             brand: 'Spain',
             rating: 4.8,
             numReviews: 17,
-            description: 'High quality product'
+            description: 'High quality product',
+            expDate:"2021-06-20"
         },
         {
-            _id:'4',
             name:'Strawberries',
             category:'Fruits',
             image:'/images/p4.jpg',
@@ -61,10 +60,10 @@ const data = {
             brand: 'Spain',
             rating: 4.5,
             numReviews: 14,
-            description: 'High quality product'
+            description: 'High quality product',
+            expDate:"2021-06-20"
         },
         {
-            _id:'5',
             name:'Banana',
             category:'Fruits',
             image:'/images/p5.jpg',
@@ -73,10 +72,10 @@ const data = {
             brand: 'Puma',
             rating: 4.5,
             numReviews: 10,
-            description: 'High quality product'
+            description: 'High quality product',
+            expDate:"2021-06-20"
         },
         {
-            _id:'6',
             name:'Canteloupe Melon',
             category:'Fruits',
             image:'/images/p6.jpg',
@@ -85,7 +84,8 @@ const data = {
             brand: 'Spain',
             rating: 4.5,
             numReviews: 15,
-            description: 'High quality product'
+            description: 'High quality product',
+            expDate:"2021-06-20"
         },
     ]
 }

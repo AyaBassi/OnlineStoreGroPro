@@ -4,6 +4,14 @@ import Rating from './Rating';
 
 export default function Product(props) {
     const { product } = props;
+    
+    function formatDate (input) {
+        var datePart = input.match(/\d+/g),
+        year = datePart[0], // get only two digits
+        month = datePart[1], day = datePart[2];
+      
+        return day+'/'+month+'/'+year;
+      }
 
     return (
         <div key={product._id} className="card">
@@ -23,6 +31,8 @@ export default function Product(props) {
                     numReviews={product.numReviews}
                 ></Rating>
                 <div className="price">£{product.price}</div>
+                
+    <div className="date">Expiry Date: {formatDate(  product.expDate.slice(0,10) )}</div>
             </div>
         </div>
     )
