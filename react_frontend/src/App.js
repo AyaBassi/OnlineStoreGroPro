@@ -1,13 +1,14 @@
-import React from 'react';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import CartScreen from './screens/CartScreen';
-import HomeScreen from './screens/HomeScreen';
-import ProductScreen from './screens/ProductScreen';
+import React from "react";
+import { BrowserRouter, Link, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
+import CartScreen from "./screens/CartScreen";
+import HomeScreen from "./screens/HomeScreen";
+import ProductScreen from "./screens/ProductScreen";
+import SigninScreen from "./screens/SigninScreen";
 
 function App() {
   const cart = useSelector((state) => state.cart);
-  const {cartItems} = cart;
+  const { cartItems } = cart;
 
   return (
     <BrowserRouter>
@@ -16,16 +17,14 @@ function App() {
           <div>
             <Link className="brand" to="/">
               Healthy Living
-          </Link>
+            </Link>
           </div>
           <div>
             <Link to="/cart">
               Cart
-            {
-            cartItems.length > 0 && (
-              <span className="badge" >{cartItems.length}</span>
-            )
-            }
+              {cartItems.length > 0 && (
+                <span className="badge">{cartItems.length}</span>
+              )}
             </Link>
             <Link to="/signin">Sign In</Link>
           </div>
@@ -33,9 +32,10 @@ function App() {
         <main>
           <Route path="/cart/:id?" component={CartScreen}></Route>
           <Route path="/product/:id" component={ProductScreen}></Route>
+          <Route path="/signin" component={SigninScreen}></Route>
           <Route path="/" component={HomeScreen} exact></Route>
         </main>
-      <footer className="row center">All rights reserved</footer>
+        <footer className="row center">All rights reserved</footer>
       </div>
     </BrowserRouter>
   );
