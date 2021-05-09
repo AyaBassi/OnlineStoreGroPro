@@ -52,7 +52,7 @@ if(!shippingAddress.address){
         </div>
         <div>
           <button className="primary" type="submit">
-            Continiue
+            Continue
           </button>
         </div>
       </form>

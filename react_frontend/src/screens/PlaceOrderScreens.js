@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Checkoutsteps from "../components/CheckoutSteps";
+import Checkoutsteps from "../components/CheckoutSteps.js";
 
 function PlaceOrderScreens(props) {
   const vatRate = 0.2;
@@ -16,8 +16,8 @@ function PlaceOrderScreens(props) {
   cart.shippingPrice = cart.itemsPrice > 100 ? toPrice(0) : toPrice(10);
   cart.taxPrice = toPrice(vatRate * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
-  const placeOrderHandler = () =>{
-
+  const placeOrderHandler = () => {
+    
   };
   return (
     <div>
@@ -77,51 +77,51 @@ function PlaceOrderScreens(props) {
           </ul>
         </div>
         <div className="col-1">
-        <div className="card card-body">
-          <ul>
-            <li>
-              <h2>Order Summary</h2>
-            </li>
-            <li>
-              <div className="row">
-                <div>Items</div>
-                <div>£{cart.itemsPrice.toFixed(2)}</div>
-              </div>
-            </li>
-            <li>
-              <div className="row">
-                <div>Delivery</div>
-                <div>£{cart.shippingPrice.toFixed(2)}</div>
-              </div>
-            </li>
-            <li>
-              <div className="row">
-                <div>Tax</div>
-                <div>£{cart.taxPrice.toFixed(2)}</div>
-              </div>
-            </li>
-            <li>
-              <div className="row">
-                <div> 
-                  <strong>Order Total</strong>
+          <div className="card card-body">
+            <ul>
+              <li>
+                <h2>Order Summary</h2>
+              </li>
+              <li>
+                <div className="row">
+                  <div>Items</div>
+                  <div>£{cart.itemsPrice.toFixed(2)}</div>
                 </div>
-                <div>
-                  <strong>£{cart.totalPrice.toFixed(2)}</strong>
+              </li>
+              <li>
+                <div className="row">
+                  <div>Delivery</div>
+                  <div>£{cart.shippingPrice.toFixed(2)}</div>
                 </div>
-              </div>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={placeOrderHandler}
-                className="primary block"
-                disabled = {cart.cartItems.length === 0}
-              >
-                Place Order
-              </button>
-            </li>
-          </ul>
-        </div>
+              </li>
+              <li>
+                <div className="row">
+                  <div>Tax</div>
+                  <div>£{cart.taxPrice.toFixed(2)}</div>
+                </div>
+              </li>
+              <li>
+                <div className="row">
+                  <div>
+                    <strong>Order Total</strong>
+                  </div>
+                  <div>
+                    <strong>£{cart.totalPrice.toFixed(2)}</strong>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={placeOrderHandler}
+                  className="primary block"
+                  disabled={cart.cartItems.length === 0}
+                >
+                  Place Order
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
