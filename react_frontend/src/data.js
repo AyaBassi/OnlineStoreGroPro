@@ -5,7 +5,7 @@ const data = {
             name:'Magners',
             category:'Fruits',
             image:'/images/p1.jpg',
-            price: 120,
+            price: 1.20,
             countInStock:10,
             brand: 'Spain',
             rating: 4.5,
