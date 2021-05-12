@@ -1,23 +1,46 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listProducts } from "../actions/ProductActions";
+import { createProduct, listProducts } from "../actions/ProductActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
+import { PRODUCT_CREATE_RESET } from "../constants/productConstants";
 
 function ProductListScreen(props) {
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
 
+  const productCreate = useSelector((state) => state.productCreate);
+  const {
+    loading: loadingCreate,
+    error: errorCreate,
+    success: successCreate,
+    product: createdProduct,
+  } = productCreate;
+
   const dispatch = useDispatch();
   useEffect(() => {
+    if (successCreate) {
+      dispatch({ type: PRODUCT_CREATE_RESET });
+      props.history.push(`/product/${createdProduct._id}/edit`);
+    }
     dispatch(listProducts());
-  }, [dispatch]);
+  }, [createdProduct, dispatch, props.history, successCreate]);
   const deleteHandler = () => {
     //TODO:
   };
+  const createHandler = () => {
+    dispatch(createProduct());
+  };
   return (
     <div>
-      <h1>Products</h1>
+      <div className="row">
+        <h1>Products</h1>
+        <button type="button" className="primary" onClick={createHandler}>
+          Create Product
+        </button>
+      </div>
+      {loadingCreate && <LoadingBox></LoadingBox>}
+      {errorCreate && <MessageBox variant="danger">{errorCreate}</MessageBox>}
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
@@ -47,7 +70,7 @@ function ProductListScreen(props) {
                 <td>{product.brand}</td>
                 <td>{product.countInStock}</td>
                 <td>{product.description}</td>
-                <td>{product.expDate.substring(0,10)}</td>
+                <td>{product.expDate.substring(0, 10)}</td>
                 <td>
                   <button
                     type="button"
