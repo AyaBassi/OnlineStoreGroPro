@@ -34,7 +34,7 @@ function ProfileScreen() {
     }
   }, [dispatch, userInfo._id, user]);
   const submitHandler = (e) => {
-    //e.preventDefault();
+    e.preventDefault();
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
     } else {
