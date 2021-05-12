@@ -97,14 +97,5 @@ function ProductListScreen(props) {
     </div>
   );
 }
-//             name:'Banana',
-//             category:'Fruits',
-//             image:'/images/p5.jpg',
-//             price: 0.80,
-//             countInStock:6,
-//             brand: 'Puma',
-//             rating: 4.5,
-//             numReviews: 10,
-//             description: 'High quality product',
-//             expDate:"2021-06-20"
+
 export default ProductListScreen;
