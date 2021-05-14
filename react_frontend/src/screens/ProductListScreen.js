@@ -9,7 +9,6 @@ import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import {
   PRODUCT_CREATE_RESET,
-  PRODUCT_DELETE_FAIL,
   PRODUCT_DELETE_RESET,
 } from "../constants/productConstants";
 
