@@ -22,6 +22,9 @@ import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
+  USER_TOPSELLERS_REQUEST,
+  USER_TOPSELLERS_SUCCESS,
+  USER_TOPSELLERS_FAIL,
 } from "../constants/userConstants";
 
 export const signin = (email, password) => async (dispatch) => {
@@ -71,25 +74,6 @@ export const signout = () => (dispatch) => {
   localStorage.removeItem("shippingAddress");
   dispatch({ type: USER_SIGNOUT });
 };
-
-// export const detailsUser = (userId) => async (dispatch, getState) => {
-//   dispatch({ type: USER_DETAILS_REQUEST, payload: userId });
-//   const {
-//     userSignin: { userInfo },
-//   } = getState();
-//   try {
-//     const { data } = await Axios.get(`/api/users/${userId}`, {
-//       headers: { Authorization: `Bearer ${userInfo.token}` },
-//     });
-//     dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
-//   } catch (error) {
-//     const message =
-//       error.response && error.response.data.messge
-//         ? error.response.data.messge
-//         : error.message;
-//     dispatch({ type: USER_DETAILS_FAIL, payload: message });
-//   }
-// };
 
 export const detailsUser = (userId) => async (dispatch, getState) => {
   dispatch({ type: USER_DETAILS_REQUEST, payload: userId });
@@ -141,7 +125,7 @@ export const updateUser = (user) => async (dispatch, getState) => {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
     dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
-   
+
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     const message =
@@ -188,5 +172,19 @@ export const deleteUser = (userId) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: USER_DELETE_FAIL, payload: message });
+  }
+};
+
+export const listTopSellers = () => async (dispatch) => {
+  dispatch({ type: USER_TOPSELLERS_REQUEST });
+  try {
+    const { data } = await Axios.get("/api/users/top-sellers");
+    dispatch({ type: USER_TOPSELLERS_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: USER_TOPSELLERS_FAIL, payload: message });
   }
 };
