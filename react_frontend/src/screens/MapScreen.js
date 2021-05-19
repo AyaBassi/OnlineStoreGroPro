@@ -1,20 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useRef, useState } from 'react';
 import {
   GoogleMap,
   LoadScript,
   Marker,
   StandaloneSearchBox,
-} from "../../node_modules/@react-google-maps/api/dist/index";
-import Axios from "../../node_modules/axios/index";
-import LoadingBox from "../components/LoadingBox";
-import { USER_ADDRESS_MAP_CONFIRM } from "../constants/userConstants";
+} from '../../node_modules/@react-google-maps/api/dist/index';
+import Axios from '../../node_modules/axios/index';
+import LoadingBox from '../components/LoadingBox';
+import { USER_ADDRESS_MAP_CONFIRM } from '../constants/userConstants';
+import { useDispatch } from 'react-redux';
 
-const libs = ["places"];
+const libs = ['places'];
 const defaultLocation = { lat: 51.5455, lng: 0.1628 };
 
 function MapScreen(props) {
-  const [googleApiKey, setGoogleApiKey] = useState("");
+  const [googleApiKey, setGoogleApiKey] = useState('');
   const [center, setCenter] = useState(defaultLocation);
   const [location, setLocation] = useState(center);
 
@@ -24,7 +24,7 @@ function MapScreen(props) {
 
   useEffect(() => {
     const fetch = async () => {
-      const { data } = await Axios("/api/config/google");
+      const { data } = await Axios('/api/config/google');
       setGoogleApiKey(data);
       getUserCurrentLocation();
     };
@@ -53,6 +53,7 @@ function MapScreen(props) {
   const onPlacesChanged = () => {
     const place = placeRef.current.getPlaces()[0].geometry.location;
     setCenter({ lat: place.lat(), lng: place.lng() });
+    setLocation({ lat: place.lat(), lng: place.lng() });
   };
 
   const dispatch = useDispatch();
@@ -70,16 +71,16 @@ function MapScreen(props) {
           googleAddressId: places[0].id,
         },
       });
-      alert("location seleted successfully");
-      props.history.push("/shipping")
+      alert('location selected successfully');
+      props.history.push('/shipping');
     } else {
-      alert("Please enter your address");
+      alert('Please enter your address');
     }
   };
 
   const getUserCurrentLocation = () => {
     if (!navigator.geolocation) {
-      alert("Geolocation is not supported by this browser.");
+      alert('Geolocation is not supported by this browser.');
     } else {
       navigator.geolocation.getCurrentPosition((position) => {
         setCenter({
@@ -98,7 +99,7 @@ function MapScreen(props) {
       <LoadScript libraries={libs} googleMapsApiKey={googleApiKey}>
         <GoogleMap
           id="sample-map"
-          mapContainerStyle={{ height: "100%", width: "100%" }}
+          mapContainerStyle={{ height: '100%', width: '100%' }}
           center={center}
           zoom={15}
           onLoad={onLoad}

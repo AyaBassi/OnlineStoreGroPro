@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { register } from "../actions/userActions";
-import LoadingBox from "../components/LoadingBox";
-import MessageBox from "../components/MessageBox";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { register } from '../actions/userActions';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
 
 function RegisterScreen(props) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const redirect = props.location.search
-    ? props.location.search.split("=")[1]
-    : "/";
+    ? props.location.search.split('=')[1]
+    : '/';
 
   const userRegister = useSelector((state) => state.userRegister);
   const { userInfo, loading, error } = userRegister;
@@ -21,10 +21,10 @@ function RegisterScreen(props) {
   const dispatch = useDispatch();
 
   // dispatch singin action with email and password given by user
-  const submitHnadler = (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Passwords do not match, please type again!");
+      alert('Passwords do not match, please type again!');
     } else {
       dispatch(register(name, email, password));
     }
@@ -38,7 +38,7 @@ function RegisterScreen(props) {
 
   return (
     <div>
-      <form className="form" onSubmit={submitHnadler}>
+      <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>Register an Account</h1>
         </div>
@@ -93,7 +93,7 @@ function RegisterScreen(props) {
         <div>
           <label />
           <div>
-            Already have registered?{" "}
+            Already have registered?{' '}
             <Link to={`/signin?redirect=${redirect}`}>Sign-In</Link>
           </div>
         </div>

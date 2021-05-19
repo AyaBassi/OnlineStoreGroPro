@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { signin } from "../actions/userActions";
-import LoadingBox from "../components/LoadingBox";
-import MessageBox from "../components/MessageBox";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { signin } from '../actions/userActions';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
 
 function SigninScreen(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const redirect = props.location.search
-    ? props.location.search.split("=")[1]
-    : "/";
+    ? props.location.search.split('=')[1]
+    : '/';
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
@@ -19,7 +19,7 @@ function SigninScreen(props) {
   const dispatch = useDispatch();
 
   // dispatch singin action with email and password given by user
-  const submitHnadler = (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
     dispatch(signin(email, password));
   };
@@ -32,7 +32,7 @@ function SigninScreen(props) {
 
   return (
     <div>
-      <form className="form" onSubmit={submitHnadler}>
+      <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>Sign In</h1>
         </div>
@@ -67,7 +67,10 @@ function SigninScreen(props) {
         <div>
           <label />
           <div>
-            New customer? <Link to={`/register?redirect=${redirect}`}>Create new account</Link>
+            New customer?{' '}
+            <Link to={`/register?redirect=${redirect}`}>
+              Create new account
+            </Link>
           </div>
         </div>
       </form>

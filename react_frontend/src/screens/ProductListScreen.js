@@ -1,23 +1,25 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
 import {
   createProduct,
   deleteProduct,
   listProducts,
-} from "../actions/ProductActions";
-import LoadingBox from "../components/LoadingBox";
-import MessageBox from "../components/MessageBox";
+} from '../actions/productActions';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
 import {
   PRODUCT_CREATE_RESET,
   PRODUCT_DELETE_RESET,
-} from "../constants/productConstants";
+} from '../constants/productConstants';
 
 function ProductListScreen(props) {
   const { pageNumber = 1 } = useParams();
-  const sellerMode = props.match.path.indexOf("/seller" >= 0);
+
+  const sellerMode = props.match.path.indexOf('/seller') >= 0;
 
   const productList = useSelector((state) => state.productList);
+
   const { loading, error, products, page, pages } = productList;
 
   const productCreate = useSelector((state) => state.productCreate);
@@ -45,7 +47,7 @@ function ProductListScreen(props) {
       dispatch({ type: PRODUCT_DELETE_RESET });
     }
     dispatch(
-      listProducts({ seller: sellerMode ? userInfo._id : "", pageNumber })
+      listProducts({ seller: sellerMode ? userInfo._id : '', pageNumber })
     );
   }, [
     createdProduct,
@@ -59,7 +61,7 @@ function ProductListScreen(props) {
   ]);
 
   const deleteHandler = (product) => {
-    if (window.confirm("Are you sure you want to DELETE?")) {
+    if (window.confirm('Are you sure you want to DELETE?')) {
       dispatch(deleteProduct(product._id));
     }
   };
@@ -135,9 +137,9 @@ function ProductListScreen(props) {
           <div className="row center pagination">
             {[...Array(pages).keys()].map((x) => (
               <Link
-                className={x + 1 === page ? "active" : ""}
+                className={x + 1 === page ? 'active' : ''}
                 key={x + 1}
-                to={`/productlist/pageNumber/${x+1}`}
+                to={`/productlist/pageNumber/${x + 1}`}
               >
                 {x + 1}
               </Link>

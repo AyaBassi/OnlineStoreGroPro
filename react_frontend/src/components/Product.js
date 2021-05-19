@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Rating from "./Rating";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Rating from './Rating';
 
 export default function Product(props) {
   const { product } = props;
@@ -11,7 +11,7 @@ export default function Product(props) {
       month = datePart[1],
       day = datePart[2];
 
-    return day + "/" + month + "/" + year;
+    return day + '/' + month + '/' + year;
   }
 
   return (
@@ -31,8 +31,7 @@ export default function Product(props) {
           <div className="price">£{product.price}</div>
           <div>
             <Link to={`/seller/${product.seller._id}`}>
-              {//product.seller.seller.name
-              }
+              {product.seller.seller.name}
             </Link>
           </div>
         </div>

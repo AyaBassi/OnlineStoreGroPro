@@ -1,37 +1,39 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter, Link, Route } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import CartScreen from "./screens/CartScreen";
-import HomeScreen from "./screens/HomeScreen";
-import ProductScreen from "./screens/ProductScreen";
-import SigninScreen from "./screens/SigninScreen";
-import { signout } from "./actions/userActions";
-import RegisterScreen from "./screens/RegisterScreen";
-import ShippingAdressScreen from "./screens/ShippingAdressScreen";
-import PaymentMethodScreen from "./screens/PaymentMethodScreen";
-import PlaceOrderScreens from "./screens/PlaceOrderScreens";
-import OrderScreen from "./screens/OrderScreen";
-import OrderHistoryScreen from "./screens/OrderHistoryScreen";
-import ProfileScreen from "./screens/ProfileScreen";
-import PrivateRoute from "./components/PrivateRoute";
-import AdminRoute from "./components/AdminRoute";
-import ProductListScreen from "./screens/ProductListScreen";
-import ProductEditScreen from "./screens/ProductEditScreen";
-import OrderListScreen from "./screens/OrderListScreen";
-import UserListScreen from "./screens/UserListScreen";
-import UserEditScreen from "./screens/UserEditScreen";
-import SearchBox from "./components/SearchBox";
-import SearchScreen from "./screens/SearchScreen";
-import SellerRoute from "./components/SellerRoute";
-import SellerScreen from "./screens/SellerScreen";
-import { listProductCategories } from "./actions/ProductActions";
-import MessageBox from "./components/MessageBox";
-import LoadingBox from "./components/LoadingBox";
-import MapScreen from "./screens/MapScreen";
-import DashboardScreen from "./screens/DashboardScreen";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter, Link, Route } from 'react-router-dom';
+import CartScreen from './screens/CartScreen';
+import HomeScreen from './screens/HomeScreen';
+import ProductScreen from './screens/ProductScreen';
+import SigninScreen from './screens/SigninScreen';
+import { signout } from './actions/userActions';
+import RegisterScreen from './screens/RegisterScreen';
+import ShippingAddressScreen from './screens/ShippingAddressScreen';
+import PaymentMethodScreen from './screens/PaymentMethodScreen';
+import PlaceOrderScreens from './screens/PlaceOrderScreens';
+import OrderScreen from './screens/OrderScreen';
+import OrderHistoryScreen from './screens/OrderHistoryScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import PrivateRoute from './components/PrivateRoute';
+import AdminRoute from './components/AdminRoute';
+import ProductListScreen from './screens/ProductListScreen';
+import ProductEditScreen from './screens/ProductEditScreen';
+import OrderListScreen from './screens/OrderListScreen';
+import UserListScreen from './screens/UserListScreen';
+import UserEditScreen from './screens/UserEditScreen';
+import SearchBox from './components/SearchBox';
+import SearchScreen from './screens/SearchScreen';
+import SellerRoute from './components/SellerRoute';
+import SellerScreen from './screens/SellerScreen';
+import { listProductCategories } from './actions/productActions';
+import MessageBox from './components/MessageBox';
+import LoadingBox from './components/LoadingBox';
+import MapScreen from './screens/MapScreen';
+import DashboardScreen from './screens/DashboardScreen';
+import logo from './storelogo.jpg';
 
 function App() {
   const cart = useSelector((state) => state.cart);
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
 
   const { cartItems } = cart;
   const userSignin = useSelector((state) => state.userSignin);
@@ -43,12 +45,11 @@ function App() {
   };
   const productCategoryList = useSelector((state) => state.productCategoryList);
   const {
-    loading: loadingCategory,
-    error: errorCategory,
+    loading: loadingCategories,
+    error: errorCategories,
     categories,
   } = productCategoryList;
 
-  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   useEffect(() => {
     dispatch(listProductCategories());
   }, [dispatch]);
@@ -56,7 +57,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="grid-container">
-        <header className="row ">
+        <header className="row">
           <div>
             <button
               type="button"
@@ -66,6 +67,7 @@ function App() {
               <i className="fa fa-bars"></i>
             </button>
             <Link className="brand" to="/">
+              <img className="logoImage" src={logo} alt="storelogo" />
               Healthy Living
             </Link>
           </div>
@@ -144,7 +146,7 @@ function App() {
             )}
           </div>
         </header>
-        <aside className={sidebarIsOpen ? "open" : ""}>
+        <aside className={sidebarIsOpen ? 'open' : ''}>
           <ul className="categories">
             <li>
               <strong>Categories</strong>
@@ -156,16 +158,16 @@ function App() {
                 <i className="fa fa-close"></i>
               </button>
             </li>
-            {loadingCategory ? (
+            {loadingCategories ? (
               <LoadingBox></LoadingBox>
-            ) : errorCategory ? (
-              <MessageBox variant="danger">{errorCategory}</MessageBox>
+            ) : errorCategories ? (
+              <MessageBox variant="danger">{errorCategories}</MessageBox>
             ) : (
               categories.map((c) => (
                 <li key={c}>
                   <Link
                     to={`/search/category/${c}`}
-                    onClick={setSidebarIsOpen(false)}
+                    onClick={() => setSidebarIsOpen(false)}
                   >
                     {c}
                   </Link>
@@ -185,7 +187,7 @@ function App() {
           ></Route>
           <Route path="/signin" component={SigninScreen}></Route>
           <Route path="/register" component={RegisterScreen}></Route>
-          <Route path="/shipping" component={ShippingAdressScreen}></Route>
+          <Route path="/shipping" component={ShippingAddressScreen}></Route>
           <Route path="/payment" component={PaymentMethodScreen}></Route>
           <Route path="/placeorder" component={PlaceOrderScreens}></Route>
           <Route path="/order/:id" component={OrderScreen}></Route>
@@ -217,18 +219,18 @@ function App() {
           <PrivateRoute path="/map" component={MapScreen}></PrivateRoute>
           <AdminRoute
             path="/productlist"
-            exact
             component={ProductListScreen}
+            exact
           ></AdminRoute>
           <AdminRoute
             path="/productlist/pageNumber/:pageNumber"
-            exact
             component={ProductListScreen}
+            exact
           ></AdminRoute>
           <AdminRoute
             path="/orderlist"
-            exact
             component={OrderListScreen}
+            exact
           ></AdminRoute>
           <AdminRoute path="/userlist" component={UserListScreen}></AdminRoute>
           <AdminRoute

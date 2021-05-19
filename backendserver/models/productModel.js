@@ -1,6 +1,5 @@
-import mongoose from "mongoose";
-
-const reviewSchema = mongoose.Schema(
+import mongoose from 'mongoose';
+const reviewSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     comment: { type: String, required: true },
@@ -10,11 +9,10 @@ const reviewSchema = mongoose.Schema(
     timestamps: true,
   }
 );
-
 const productSchema = new mongoose.Schema(
   {
-    name: { type: String, require: true, unique: true },
-    seller: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    name: { type: String, required: true, unique: true },
+    seller: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     image: { type: String, required: true },
     brand: { type: String, required: true },
     category: { type: String, required: true },
@@ -30,6 +28,5 @@ const productSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-
-const Product = mongoose.model("Product", productSchema);
+const Product = mongoose.model('Product', productSchema);
 export default Product;

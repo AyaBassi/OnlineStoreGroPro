@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { saveShippingAddress } from "../actions/cartActions";
-import CheckoutSteps from "../components/CheckoutSteps";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveShippingAddress } from '../actions/cartActions';
+import CheckoutSteps from '../components/CheckoutSteps';
 
-function ShippingAdressScreen(props) {
+function ShippingAddressScreen(props) {
   const userSignin = useSelector((state) => state.userSignin);
 
   const { userInfo } = userSignin;
@@ -17,7 +17,7 @@ function ShippingAdressScreen(props) {
   const { address: addressMap } = userAddressMap;
 
   if (!userInfo) {
-    props.history.push("/signin");
+    props.history.push('/signin');
   }
   const [fullName, setFullName] = useState(shippingAddress.fullName);
   const [address, setAddress] = useState(shippingAddress.address);
@@ -26,7 +26,7 @@ function ShippingAdressScreen(props) {
   const [country, setCountry] = useState(shippingAddress.country);
 
   const dispatch = useDispatch();
-  const submitHanlder = (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
     const newLat = addressMap ? addressMap.lat : lat;
     const newLng = addressMap ? addressMap.lng : lng;
@@ -37,7 +37,7 @@ function ShippingAdressScreen(props) {
     let moveOn = true;
     if (!newLat || !newLng) {
       moveOn = window.confirm(
-        "You did not set your location on Map. Continue?"
+        'You did not set your location on Map. Continue?'
       );
     }
     if (moveOn) {
@@ -52,7 +52,7 @@ function ShippingAdressScreen(props) {
           lng: newLng,
         })
       );
-      props.history.push("/payment");
+      props.history.push('/payment');
     }
   };
 
@@ -68,13 +68,13 @@ function ShippingAdressScreen(props) {
         lng,
       })
     );
-    props.history.push("/map")
+    props.history.push('/map');
   };
 
   return (
     <div>
       <CheckoutSteps step1 step2></CheckoutSteps>
-      <form className="form" onSubmit={submitHanlder}>
+      <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>Delivery Address</h1>
         </div>
@@ -150,4 +150,4 @@ function ShippingAdressScreen(props) {
   );
 }
 
-export default ShippingAdressScreen;
+export default ShippingAddressScreen;

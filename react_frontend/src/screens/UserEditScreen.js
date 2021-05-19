@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { detailsUser, updateUser } from "../actions/userActions";
-import LoadingBox from "../components/LoadingBox";
-import MessageBox from "../components/MessageBox";
-import { USER_UPDATE_RESET } from "../constants/userConstants";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { detailsUser, updateUser } from '../actions/userActions';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
+import { USER_UPDATE_RESET } from '../constants/userConstants';
 
 function UserEditScreen(props) {
   const userId = props.match.params.id;
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [isSeller, setIsSeller] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -26,7 +26,7 @@ function UserEditScreen(props) {
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: USER_UPDATE_RESET });
-      props.history.push("/userlist");
+      props.history.push('/userlist');
     }
     if (!user) {
       dispatch(detailsUser(userId));
@@ -39,15 +39,19 @@ function UserEditScreen(props) {
   }, [dispatch, props.history, successUpdate, user, userId]);
   const submitHandler = (e) => {
     e.preventDefault();
-    // dispatch uder user
-    dispatch(updateUser({ _id: userId, name, email, isSeller,isAdmin }));
+
+    dispatch(updateUser({ _id: userId, name, email, isSeller, isAdmin }));
   };
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
-        <h1>Edit User {name}</h1>
-        {loadingUpdate && <LoadingBox></LoadingBox>}
-        {errorUpdate && <MessageBox variant="danger">{errorUpdate}</MessageBox>}
+        <div>
+          <h1>Edit User {name}</h1>
+          {loadingUpdate && <LoadingBox></LoadingBox>}
+          {errorUpdate && (
+            <MessageBox variant="danger">{errorUpdate}</MessageBox>
+          )}
+        </div>
         {loading ? (
           <LoadingBox></LoadingBox>
         ) : error ? (

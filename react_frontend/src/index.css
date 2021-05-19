@@ -27,7 +27,7 @@ body {
 }
 header {
   grid-area: header;
-  background-color: #203040;
+  background-color: #f2f2f2;
 }
 main {
   grid-area: main;
@@ -95,13 +95,14 @@ button.small {
 }
 /* Header */
 header a {
-  color: #ffffff;
+  color: #000000;
   padding: 1rem;
 }
 a.brand {
-  color: #ffffff;
+  color: #000000;
   font-size: 3rem;
   font-weight: bold;
+  font-family: 'Brush Script MT', cursive;
 }
 .badge {
   background-color: #f02020;
@@ -159,7 +160,7 @@ button.open-sidebar {
   padding: 0.2rem 0.5rem;
   margin: 0 0.5rem;
   background: none;
-  color: #ffffff;
+  color: #000;
   cursor: pointer;
 }
 button.open-sidebar:hover {
@@ -179,6 +180,13 @@ button.close-sidebar {
 }
 
 /* Image */
+.logoImage {
+  max-width: 5rem;
+  max-height: 4rem;
+  height: 100%;
+  width: 100%;
+}
+
 img {
   border-radius: 0.5rem;
 }
@@ -270,7 +278,7 @@ img.large {
   min-width: 12rem;
   padding: 1rem;
   z-index: 1;
-  background-color: #203040;
+  background-color: #f2f2f2;
   margin: 0;
   margin-top: 0.4rem;
   border-radius: 0.5rem;
@@ -334,7 +342,7 @@ img.large {
   height: calc(100% + 2rem);
 }
 
-.map-input-box{
+.map-input-box {
   box-sizing: border-box;
   position: absolute;
   left: 0;
@@ -342,7 +350,7 @@ img.large {
   margin: 0.5rem auto;
   width: 25rem;
   height: 4rem;
-  display: text;
+  display: flex;
 }
 
 .map-input-box input {
@@ -350,25 +358,25 @@ img.large {
   border-right: 0;
 }
 
-.map-input-box button{
+.map-input-box button {
   border-radius: 0 1rem 1rem 0;
   border-left: 0;
 }
 
 /* Pagination */
 
-.pagination a{
+.pagination a {
   padding: 1rem;
   margin: 0.5rem;
   border-radius: 0.5rem;
-  border:0.1rem #a4a4a4;
+  border: 0.1rem #a4a4a4 solid;
   font-size: 1.6rem;
   font-family: Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.pagination a.active{
+.pagination a.active {
   font-weight: bold;
 }
 
@@ -386,19 +394,18 @@ img.large {
   padding: 1rem;
 }
 
-.summary-body{
+.summary-body {
   font-size: 4rem;
   padding: 1rem;
   text-align: center;
 }
 
-.summary-title.color1{
+.summary-title.color1 {
   background-color: #f0e0e0;
 }
-.summary-title.color2{
+.summary-title.color2 {
   background-color: #e0f0e0;
 }
-.summary-title.color3{
+.summary-title.color3 {
   background-color: #e0e0f0;
 }
-

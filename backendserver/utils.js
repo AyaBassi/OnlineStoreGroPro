@@ -1,5 +1,6 @@
-import jwt from "jsonwebtoken";
-import mg from "mailgun-js";
+import jwt from 'jsonwebtoken';
+import mg from 'mailgun-js';
+
 export const generateToken = (user) => {
   return jwt.sign(
     {
@@ -9,9 +10,9 @@ export const generateToken = (user) => {
       isAdmin: user.isAdmin,
       isSeller: user.isSeller,
     },
-    process.env.JWT_SECRET || "whiteboardchurchchairs",
+    process.env.JWT_SECRET || 'whiteboardchurchchairs',
     {
-      expiresIn: "30d",
+      expiresIn: '30d',
     }
   );
 };
@@ -22,10 +23,10 @@ export const isAuth = (req, res, next) => {
     const token = authorization.slice(7, authorization.length);
     jwt.verify(
       token,
-      process.env.JWT_SECRET || "whiteboardchurchchairs",
+      process.env.JWT_SECRET || 'whiteboardchurchchairs',
       (err, decode) => {
         if (err) {
-          res.status(401).send({ message: "Invalid Token" });
+          res.status(401).send({ message: 'Invalid Token' });
         } else {
           req.user = decode;
           next();
@@ -33,7 +34,7 @@ export const isAuth = (req, res, next) => {
       }
     );
   } else {
-    res.status(401).send({ message: "No Token" });
+    res.status(401).send({ message: 'No Token' });
   }
 };
 
@@ -41,7 +42,7 @@ export const isAdmin = (req, res, next) => {
   if (req.user && req.user.isAdmin) {
     next();
   } else {
-    res.status(401).send({ message: "Invalid Admin Token" });
+    res.status(401).send({ message: 'Invalid Admin Token' });
   }
 };
 
@@ -49,7 +50,7 @@ export const isSeller = (req, res, next) => {
   if (req.user && req.user.isSeller) {
     next();
   } else {
-    res.status(401).send({ message: "Invalid Seller Token" });
+    res.status(401).send({ message: 'Invalid Seller Token' });
   }
 };
 
@@ -57,47 +58,43 @@ export const isSellerOrAdmin = (req, res, next) => {
   if (req.user && (req.user.isSeller || req.user.isAdmin)) {
     next();
   } else {
-    res.status(401).send({ message: "Invalid Admin/Seller Token" });
+    res.status(401).send({ message: 'Invalid Admin/Seller Token' });
   }
 };
 
-export const mailgun = () => mg({
-  apiKey: process.env.MAILGUN_API_KEY,
-  domain: process.env.MAILGUN_DOMAIN,
-});
+export const mailgun = () =>
+  mg({
+    apiKey: process.env.MAILGUN_API_KEY,
+    domain: process.env.MAILGUN_DOMAIN,
+  });
 
 export const payOrderEmailTemplate = (order) => {
   return `<h1>Thanks for shopping with us</h1>
   <p>
   Hi ${order.user.name},</p>
-  <p> We have finished processing your order. </p>
+  <p> We have finished processing your order.</p>
 
-  <h2> [Order ${order._id}] (${order.createdAt
-    .toString()
-    .substring(0, 10)})</h2>
-
-
+  <h2>[Order ${order._id}] (${order.createdAt.toString().substring(0, 10)})</h2>
   <table>
   <thead>
   <tr>
-    <td><strong>Product</strong></td>
-    <td><strong>Quantity</strong></td>
-    <td><strong align="right">Price</strong></td>
+  <td><strong>Product</strong></td>
+  <td><strong>Quantity</strong></td>
+  <td><strong align="right">Price</strong></td>
   </tr>
   </thead>
   <tbody>
-    ${order.orderItems
-      .map(
-        (item) => `
-
+  ${order.orderItems
+    .map(
+      (item) => `
   <tr>
   <td>${item.name}</td>
-  <td align="center">${item.quantity}</td>
+  <td align="center">${item.qty}</td>
   <td align="right">£${item.price.toFixed(2)}</td>
   </tr>
 `
-      )
-      .join("\n")}
+    )
+    .join('\n')}
 
   </tbody>
   <tfoot>
@@ -135,7 +132,7 @@ ${order.shippingAddress.fullName},<br/>
 ${order.shippingAddress.address},<br/>
 ${order.shippingAddress.city},<br/>
 ${order.shippingAddress.country},<br/>
-${order.shippingAddress.postalCode},<br/>
+${order.shippingAddress.postalCode}<br/>
 </p>
 <hr/>
 <p>

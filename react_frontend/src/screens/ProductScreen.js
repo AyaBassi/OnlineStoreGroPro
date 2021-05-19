@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { createReview, detailsProduct } from "../actions/ProductActions";
-import LoadingBox from "../components/LoadingBox";
-import MessageBox from "../components/MessageBox";
-import Rating from "../components/Rating";
-import { PRODUCT_REVIEW_CREATE_RESET } from "../constants/productConstants";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { createReview, detailsProduct } from '../actions/productActions';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
+import Rating from '../components/Rating';
+import { PRODUCT_REVIEW_CREATE_RESET } from '../constants/productConstants';
 
 function ProductScreen(props) {
   const dispatch = useDispatch();
@@ -15,8 +15,8 @@ function ProductScreen(props) {
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
 
-  const userSingin = useSelector((state) => state.userSingin);
-  const { userInfo } = userSingin;
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
 
   const productReviewCreate = useSelector((state) => state.productReviewCreate);
   const {
@@ -26,13 +26,13 @@ function ProductScreen(props) {
   } = productReviewCreate;
 
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
 
   useEffect(() => {
     if (successReviewCreate) {
-      window.alert("Review Submitted Successfully");
-      setRating("");
-      setComment("");
+      window.alert('Review Submitted Successfully');
+      setRating('');
+      setComment('');
       dispatch({ type: PRODUCT_REVIEW_CREATE_RESET });
     }
     dispatch(detailsProduct(productId));
@@ -48,7 +48,7 @@ function ProductScreen(props) {
         createReview(productId, { rating, comment, name: userInfo.name })
       );
     } else {
-      alert("Please enter comment and rating");
+      alert('Please enter comment and rating');
     }
   };
 
@@ -71,7 +71,9 @@ function ProductScreen(props) {
             </div>
             <div className="col-1">
               <ul>
-                <li>{product.name}</li>
+                <li>
+                  <h1>{product.name}</h1>
+                </li>
                 <li>
                   <Rating
                     rating={product.rating}
@@ -89,7 +91,7 @@ function ProductScreen(props) {
               <div className="card card-body">
                 <ul>
                   <li>
-                    Seller{" "}
+                    Seller{' '}
                     <h2>
                       <Link to={`/seller/${product.seller._id}`}>
                         {product.seller.seller.name}
@@ -213,7 +215,7 @@ function ProductScreen(props) {
                   </form>
                 ) : (
                   <MessageBox>
-                    Please <Link to="signin">Sign In</Link> to write a review
+                    Please <Link to="/signin">Sign In</Link> to write a review
                   </MessageBox>
                 )}
               </li>
