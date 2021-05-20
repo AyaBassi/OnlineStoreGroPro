@@ -109,7 +109,7 @@ export const payOrderEmailTemplate = (order) => {
   </tr>
 
   <tr>
-  <td colspan="2">Tax Price:</td>
+  <td colspan="2">Delivery Price:</td>
   <td align="right"> £${order.shippingPrice.toFixed(2)}</td>
   </tr>
 

@@ -139,11 +139,13 @@ orderRouter.put(
         email_address: req.body.email_address,
       };
       const updatedOrder = await order.save();
+      console.log(order.user.email);
+
       mailgun()
         .messages()
         .send(
           {
-            from: 'HealthyLiving <onlinestore@mg.healthyliving.com',
+            from: 'HealthyLiving <onlinestore@mg.yourdomain.com>',
             to: `${order.user.name} <${order.user.email}>`,
             subject: `New order ${order._id}`,
             html: payOrderEmailTemplate(order),
