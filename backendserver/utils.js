@@ -141,3 +141,21 @@ Thanks for shopping.
 
   `;
 };
+
+export const emailSupplierIfCountInStockIsEqualOrLessThanTen = (
+  userSeller,
+  product,
+  qty
+) => {
+  return `
+  <h1>HealthyLiving</h1>
+  
+  <p>Hi Dear ${userSeller.name}</p>
+
+  <p>We would like to place an order for <strong>${qty}</strong> of <strong>${product.name}</strong>, brand: ${product.brand}, Description: ${product.description}. 
+
+  <p>Thank you.</p>
+  
+  
+  `;
+};

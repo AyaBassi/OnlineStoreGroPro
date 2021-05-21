@@ -4,6 +4,7 @@ import Order from '../models/orderModel.js';
 import User from '../models/userModel.js';
 import Product from '../models/productModel.js';
 import {
+  emailSupplierIfCountInStockIsEqualOrLessThanTen,
   isAdmin,
   isAuth,
   isSellerOrAdmin,
@@ -127,7 +128,7 @@ orderRouter.put(
   expressAsyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id).populate(
       'user',
-      'email name'
+      'email name seller'
     );
     if (order) {
       order.isPaid = true;
@@ -139,8 +140,6 @@ orderRouter.put(
         email_address: req.body.email_address,
       };
       const updatedOrder = await order.save();
-      console.log(order.user.email);
-
       mailgun()
         .messages()
         .send(
@@ -159,13 +158,52 @@ orderRouter.put(
           }
         );
 
-      // for (const index in updatedOrder.orderItems) {
-      //   const item = updatedOrder.orderItems[index];
-      //   const product = await Product.findById(item.product);
-      //   product.countInStock -= item.qty;
-      //   product.sold += item.qty;
-      //   await product.save();
-      // }
+      for (const index in updatedOrder.orderItems) {
+        const item = updatedOrder.orderItems[index];
+        const product = await Product.findById(item.product).populate(
+          'product',
+          'seller'
+        );
+        product.countInStock -= item.qty;
+        //product.sold += item.qty;
+        const sellerId = product.seller;
+        const userSeller = await User.findById(sellerId);
+        console.log('SellerName' + userSeller.seller.name);
+
+        await product.save();
+
+        // send email to seller if countInStock is less than or equal to 10
+        // get product name as well
+        if (product.countInStock <= 10) {
+          console.log(
+            'The count is: ' +
+              product.countInStock +
+              ' so have to send an email to: ' +
+              userSeller.seller.name
+          );
+          mailgun()
+            .messages()
+            .send(
+              {
+                from: 'HealthyLiving <onlinestore@mg.yourdomain.com>',
+                to: `${userSeller.seller.name} <${userSeller.email}>`,
+                subject: `New order ${product._id}`,
+                html: emailSupplierIfCountInStockIsEqualOrLessThanTen(
+                  userSeller,
+                  product,
+                  100
+                ),
+              },
+              (error, body) => {
+                if (error) {
+                  console.log(error);
+                } else {
+                  console.log(body);
+                }
+              }
+            );
+        }
+      }
       res.send({ message: 'Order Paid', order: updatedOrder });
     } else {
       res.status(404).send({ message: 'Order Not Found' });
