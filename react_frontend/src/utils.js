@@ -10,7 +10,7 @@ export const prices = [
     max: 10,
   },
   {
-    name: `£1 to £100`,
+    name: `£10 to £100`,
     min: 10,
     max: 100,
   },

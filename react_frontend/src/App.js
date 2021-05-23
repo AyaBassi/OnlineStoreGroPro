@@ -80,7 +80,7 @@ function App() {
           </div>
           <div>
             <Link to="/cart">
-              Cart
+              Basket
               {cartItems.length > 0 && (
                 <span className="badge">{cartItems.length}</span>
               )}

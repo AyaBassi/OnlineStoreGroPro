@@ -17,7 +17,7 @@ const data = {
       },
     },
     {
-      name: 'Alex',
+      name: 'Alex Jones',
       email: 'pkarbassi@hotmail.co.uk',
       password: bcrypt.hashSync('1234', 8),
       isAdmin: false,

@@ -128,11 +128,20 @@ orderRouter.put(
   expressAsyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id).populate(
       'user',
-      'email name seller'
+      'email name'
     );
     if (order) {
       order.isPaid = true;
+      // this code is 1 hour back so lets try right now
       order.paidAt = Date.now();
+      // var rightNow = new Date();
+      // rightNow = rightNow.toLocaleString('en-GB', {
+      //   hour: '2-digit',
+      //   hour12: false,
+      //   timeZone: 'Europe/London',
+      // });
+      // order.paidAt = rightNow;
+
       order.paymentResult = {
         id: req.body.id,
         status: req.body.status,
@@ -160,10 +169,7 @@ orderRouter.put(
 
       for (const index in updatedOrder.orderItems) {
         const item = updatedOrder.orderItems[index];
-        const product = await Product.findById(item.product).populate(
-          'product',
-          'seller'
-        );
+        const product = await Product.findById(item.product);
         product.countInStock -= item.qty;
         //product.sold += item.qty;
         const sellerId = product.seller;

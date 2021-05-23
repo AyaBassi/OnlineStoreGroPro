@@ -4,8 +4,8 @@ import {
   LoadScript,
   Marker,
   StandaloneSearchBox,
-} from '../../node_modules/@react-google-maps/api/dist/index';
-import Axios from '../../node_modules/axios/index';
+} from '@react-google-maps/api';
+import Axios from 'axios';
 import LoadingBox from '../components/LoadingBox';
 import { USER_ADDRESS_MAP_CONFIRM } from '../constants/userConstants';
 import { useDispatch } from 'react-redux';
@@ -111,11 +111,9 @@ function MapScreen(props) {
           >
             <div className="map-input-box">
               <input type="text" placeholder="Enter you Address"></input>
-              <button
-                type="button"
-                className="primary"
-                onClick={onConfirm}
-              ></button>
+              <button type="button" className="primary" onClick={onConfirm}>
+                Confirm
+              </button>
             </div>
           </StandaloneSearchBox>
 
